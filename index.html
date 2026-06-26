@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#FBFDFF">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#FBFDFF">
+    <meta name="color-scheme" content="light">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Mellow">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Mellow Vocabulary">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-TileColor" content="#FBFDFF">
+    <meta name="msapplication-navbutton-color" content="#3A86FF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Mellow — Vocabulary Builder</title>
+
+    <meta name="description"
+        content="A minimalist, secure, and fully offline Progressive Web App for mastering foreign vocabulary with smart flashcards, automated tests, and gamified achievements.">
+    <meta name="keywords"
+        content="mellow, vocabulary builder, flashcards, word study, learn english, learn japanese, offline pwa dictionary">
+    <meta name="author" content="Vladyslav Nepomniashchyi">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mellow.app/">
+    <meta property="og:title" content="Mellow — Your Offline Vocabulary Builder">
+    <meta property="og:description"
+        content="Learn words locally and securely without internet. Native iOS aesthetic, interactive flashcards, adaptive tests, and progress tracking.">
+    <meta property="og:image" content="public/og-image.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--page loader-->
+    <div class="pl">
+        <div class="pl-cards">
+            <div class="card card-a">
+                <span class="card-i1">📚</span>
+                <span class="card-i2">Simple</span>
+            </div>
+            <div class="card card-b">
+                <span class="card-i1">💭</span>
+                <span class="card-i2">Learning</span>
+            </div>
+            <div class="card card-c">
+                <span class="card-i1">✨</span>
+                <span class="card-i2">Mellow</span>
+            </div>
+        </div>
+        <div class="pl-text">
+            <span class="t-text-pl">welcome to</span>
+            <span class="c-text-pl m-text">Mellow</span>
+        </div>
+        <div class="pl-bot-text">
+            Created by <span class="pl-bot-text-acc1">fovae</span><br>
+            <span class="pl-bot-text-acc2">All rights reserved.</span>
+        </div>
+    </div>
+
+    <!--userNameModal-->
+    <div class="home-screen-welcome-modal">
+        <h2>Welcome to Mellow!</h2>
+        <p>How would you like us to call you?</p>
+        <input type="text" id="userNameInput" placeholder="Your name" autocomplete="off" autocorrect="off"
+            autocapitalize="off" spellcheck="false">
+        <button id="userNameSubmit">Save</button>
+    </div>
+
+    <!--burger menu-->
+    <svg width="0" height="0" style="position:absolute">
+        <defs>
+            <linearGradient id="apple-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#3A86FF" />
+                <stop offset="100%" stop-color="#7B3FF2" />
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <nav class="apple-tab-bar" id="tabBar">
+        <div class="tab-indicator" id="tabIndicator"></div>
+
+        <div class="tab-item active" data-screen="home">
+            <div class="tab-icon-wrapper">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+            </div>
+            <span class="tab-label">HOME</span>
+        </div>
+
+        <div class="tab-item" data-screen="dictionaries">
+            <div class="tab-icon-wrapper">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+            </div>
+            <span class="tab-label">DICTS</span>
+        </div>
+
+        <div class="tab-item" data-screen="cards">
+            <div class="tab-icon-wrapper">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="9" rx="1"></rect>
+                    <rect x="14" y="3" width="7" height="5" rx="1"></rect>
+                    <rect x="14" y="12" width="7" height="9" rx="1"></rect>
+                    <rect x="3" y="16" width="7" height="5" rx="1"></rect>
+                </svg>
+            </div>
+            <span class="tab-label">CARDS</span>
+        </div>
+
+        <div class="tab-item" data-screen="tests">
+            <div class="tab-icon-wrapper">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+            </div>
+            <span class="tab-label">TESTS</span>
+        </div>
+
+        <div class="tab-item" data-screen="profile">
+            <div class="tab-icon-wrapper">
+                <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            <span class="tab-label">PROFILE</span>
+        </div>
+    </nav>
+
+    <!--main - home page-->
+    <main id="mainContent" class="main-container">
+
+        <section id="homeScreen" class="app-screen is-active">
+            <div class="home-screen-container">
+                <div class="screen-header">
+                    <div>
+                        <h1 class="greeting">Welcome, <span class="username"></span> 👋</h1>
+                        <div class="subtle">What’s your mood today?</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="counts-grid">
+                        <div class="small-stat">
+                            <span class="stat-icon">📚</span>
+                            <span class="stat-value" id="count-dictionaries">0</span>
+                            <span class="stat-label">Dictionaries</span>
+                        </div>
+                        <div class="small-stat">
+                            <span class="stat-icon">🔤</span>
+                            <span class="stat-value" id="count-words">0</span>
+                            <span class="stat-label">Total Words</span>
+                        </div>
+                        <div class="small-stat">
+                            <span class="stat-icon">★</span>
+                            <span class="stat-value" id="count-favourites">0</span>
+                            <span class="stat-label">Favourites</span>
+                        </div>
+                        <div class="small-stat">
+                            <span class="stat-icon">⏳</span>
+                            <span class="stat-value" id="count-hours">0m</span>
+                            <span class="stat-label">Active Time</span>
+                        </div>
+                    </div>
+
+                    <div class="active-dictionary" id="active-dictionary-block">
+                        <div class="active-left">
+                            <div class="active-title">Active Dictionary</div>
+                            <div class="active-name" id="active-dict-name">Select a dictionary</div>
+                            <div class="active-sub" id="active-dict-sub">Tap to choose</div>
+                        </div>
+                        <div class="active-right" id="active-dict-emoji">📚</div>
+                    </div>
+                </div>
+
+                <div class="stats-widget">
+                    <h2 class="section-title">Recent Dictionaries</h2>
+                    <div class="mini-dicts-list">
+                        <div class="mini-dict">
+                            <div class="md-left">
+                                <div class="md-name">Spanish Basics</div>
+                                <div class="md-sub">Words learned: 45</div>
+                            </div>
+                            <div class="md-right">
+                                <div class="md-acc">89%</div>
+                                <div class="md-bar">
+                                    <div class="md-fill" style="width:89%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-dict">
+                            <div class="md-left">
+                                <div class="md-name">French Phrases</div>
+                                <div class="md-sub">Words learned: 28</div>
+                            </div>
+                            <div class="md-right">
+                                <div class="md-acc">74%</div>
+                                <div class="md-bar">
+                                    <div class="md-fill" style="width:74%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="dictionariesScreen" class="app-screen">
+            <div class="home-screen-container">
+                <div class="screen-header">
+                    <div>
+                        <h1 class="greeting">My Dictionaries</h1>
+                        <div class="subtle">Manage your vocabulary packs</div>
+                    </div>
+                    <button class="apple-btn-primary" id="addDictBtn">+ New</button>
+                </div>
+
+                <div class="dicts-grid" id="dictsListContainer">
+                    <div class="dict-main-card">
+                        <div class="dmc-header">
+                            <span class="dmc-emoji">🇬🇧</span>
+                            <span class="dmc-count">124 words</span>
+                        </div>
+                        <h3 class="dmc-title">English Upper-Intermediate</h3>
+                        <div class="dmc-footer">
+                            <span class="dmc-badge">Active</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cardsScreen" class="app-screen">
+            <div class="home-screen-container">
+                <div class="screen-header">
+                    <div>
+                        <h1 class="greeting">Flashcards</h1>
+                        <div class="subtle">Tap the card to reveal the meaning</div>
+                    </div>
+                </div>
+
+                <div class="flashcard-shell">
+                    <div class="flashcard-wrapper" id="flashcardElement">
+                        <div class="flashcard-face flashcard-front">
+                            <span class="flashcard-label">Vocabulary</span>
+                            <div class="flashcard-word">Serene</div>
+                            <div class="flashcard-meaning">A calm and peaceful state</div>
+                        </div>
+                        <div class="flashcard-face flashcard-back">
+                            <span class="flashcard-label">Meaning</span>
+                            <div class="flashcard-word">Peaceful</div>
+                            <div class="flashcard-meaning">Used to describe a quiet, tranquil feeling</div>
+                        </div>
+                    </div>
+
+                    <div class="flashcard-controls">
+                        <button class="flashcard-control flashcard-control--wrong" type="button">Again</button>
+                        <button class="flashcard-control flashcard-control--right" type="button">Recall</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testsScreen" class="app-screen">
+            <div class="home-screen-container">
+                <div class="screen-header">
+                    <div>
+                        <h1 class="greeting">Quick Test</h1>
+                        <div class="subtle">Choose the best answer</div>
+                    </div>
+                </div>
+
+                <div class="test-card">
+                    <div class="test-question">What does “serene” mean?</div>
+                    <div class="test-options">
+                        <button class="test-opt-btn" type="button" data-correct="false">Stormy</button>
+                        <button class="test-opt-btn" type="button" data-correct="true">Calm</button>
+                        <button class="test-opt-btn" type="button" data-correct="false">Loud</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="profileScreen" class="app-screen">
+            <div class="home-screen-container">
+                <div class="screen-header">
+                    <div>
+                        <h1 class="greeting">Profile</h1>
+                        <div class="subtle">Personalize your learning flow</div>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-pill">Hello, <span class="username"></span></div>
+                    <div class="profile-pill">Current streak: 7 days</div>
+                    <div class="profile-pill">Focus mode: Calm</div>
+                    <div class="profile-actions">
+                        <button class="profile-action" id="profBtnStats" type="button">View statistics</button>
+                        <button class="profile-action" id="profBtnSettings" type="button">Settings</button>
+                        <button class="profile-action profile-action--danger" id="profBtnReset" type="button">Reset data</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <script src="app.js"></script>
+</body>
+
+</html>
