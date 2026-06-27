@@ -36,7 +36,7 @@ The intro overlay shows the branded loading experience before the app becomes in
 The welcome modal collects the username and stores it in localStorage. It appears when no stored name exists and hides once the app is ready.
 
 ### NAVIGATION
-The bottom tab bar contains `.tab-item` buttons. Clicking one updates the active state, moves the tab indicator, and switches the visible `.app-screen`.
+The bottom tab bar contains `.tab-item` buttons inside a floating glass pill. Clicking one updates the active state, moves the `.tab-indicator-bubble`, and switches the visible `.app-screen`. The bar begins hidden during the loader and only reveals itself once the home experience becomes visible, using a subtle entrance transition.
 
 ### APP SCREEN
 Each `.app-screen` is an independent viewport. It uses `overflow-y: auto`, `-webkit-overflow-scrolling: touch`, and a custom thumb element so the surface feels native while avoiding the browser scrollbar.
@@ -48,11 +48,12 @@ Each screen contains one `.custom-scroll-thumb` element. It is positioned absolu
 
 1. The app boots in [app.js](app.js) and checks for a saved username.
 2. If no username exists, the onboarding modal becomes visible.
-3. When the user saves a name, the main container becomes visible and the home screen becomes active.
-4. Tapping a `.tab-item` updates the active tab and toggles the matching `.app-screen` into the visible state.
-5. The DOM keeps each screen mounted, so the screen state remains intact when switching tabs.
-6. While a screen scrolls, its own thumb becomes visible and updates position using the scroll ratio and padding-aware track height.
-7. When scrolling stops, the thumb fades out after 650ms.
+3. When the user saves a name, the main container becomes visible and the app starts the home-screen reveal flow.
+4. The bottom bar is revealed only after the loader transition finishes and the home screen is active; the entrance animation is triggered only on the first launch in a session.
+5. Tapping a `.tab-item` updates the active tab, moves the bubble indicator, and toggles the matching `.app-screen` into the visible state.
+6. The DOM keeps each screen mounted, so the screen state remains intact when switching tabs.
+7. While a screen scrolls, its own thumb becomes visible and updates position using the scroll ratio and padding-aware track height.
+8. When scrolling stops, the thumb fades out after 650ms.
 
 ## 4. Links and dependencies
 

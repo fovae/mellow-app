@@ -23,8 +23,9 @@ const initializeMellowApp = () => {
     const nameInput = document.getElementById("userNameInput");
     const submitBtn = document.getElementById("userNameSubmit");
     const tabBar = document.getElementById("tabBar");
-    const tabIndicator = document.getElementById("tabIndicator");
+    const tabIndicatorBubble = document.getElementById("tabIndicatorBubble");
     const tabItems = Array.from(document.querySelectorAll(".tab-item"));
+    const bottomBarRevealKey = "mellow_bottom_bar_revealed";
     const screens = Array.from(document.querySelectorAll(".app-screen"));
     const usernameNodes = Array.from(document.querySelectorAll(".username"));
     const flashcard = document.getElementById("flashcardElement");
@@ -88,17 +89,17 @@ const initializeMellowApp = () => {
     // NAVIGATION
     // logic: toggles the active screen and aligns the tab indicator
     const updateIndicatorPosition = (activeTab) => {
-        if (!activeTab || !tabBar || !tabIndicator) {
+        if (!activeTab || !tabBar || !tabIndicatorBubble) {
             return;
         }
 
         const barRect = tabBar.getBoundingClientRect();
         const tabRect = activeTab.getBoundingClientRect();
         const offsetLeft = tabRect.left - barRect.left;
-        const width = Math.max(tabRect.width - 10, 56);
+        const width = Math.max(tabRect.width - 8, 56);
 
-        tabIndicator.style.width = `${width}px`;
-        tabIndicator.style.transform = `translateX(${offsetLeft + 5}px)`;
+        tabIndicatorBubble.style.left = `${offsetLeft + 4}px`;
+        tabIndicatorBubble.style.width = `${width}px`;
     };
 
     const switchScreen = (screenName) => {
@@ -113,14 +114,30 @@ const initializeMellowApp = () => {
         });
     };
 
+    const revealBottomBar = () => {
+        if (!tabBar) {
+            return;
+        }
+
+        const shouldAnimateEntrance = window.sessionStorage.getItem(bottomBarRevealKey) !== "true";
+
+        tabBar.classList.remove("is-hidden-initially");
+        tabBar.classList.add("reveal-bar");
+        tabBar.classList.add("is-visible");
+
+        if (shouldAnimateEntrance) {
+            window.sessionStorage.setItem(bottomBarRevealKey, "true");
+        }
+    };
+
     const showMainApplication = (nickname) => {
         setUsername(nickname);
 
         welcomeModal?.classList.remove("is-visible");
         mainContent?.classList.add("is-visible");
-        tabBar?.classList.add("is-visible");
 
         switchScreen("home");
+        revealBottomBar();
 
         window.requestAnimationFrame(() => {
             const activeTab = tabBar?.querySelector(".tab-item.active") || tabItems[0];

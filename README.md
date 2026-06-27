@@ -1,14 +1,14 @@
 # Mellow
 
-Mellow is a minimalist, Apple-inspired vocabulary PWA built with plain HTML, CSS, and JavaScript. The app now ships with a frozen, per-screen viewport architecture, a native-feeling custom scrollbar, and a clean, documented structure for future expansion.
+Mellow is a minimalist, Apple-inspired vocabulary PWA built with plain HTML, CSS, and JavaScript. The app now ships with a frozen, per-screen viewport architecture, a native-feeling custom scrollbar, and a premium bottom navigation system that mirrors modern iOS Liquid Glass patterns.
 
 ## What is included
 
 - A branded splash loader and onboarding flow
-- A floating iOS-style tab bar with animated indicator
+- A floating iOS-style bottom bar with a glassy translucent pill, animated reveal, and a morphing bubble indicator
 - Five independent app screens: Home, Dictionaries, Cards, Tests, and Profile
 - Per-screen scroll containers with a custom capsule scrollbar that fades in while scrolling and fades out after interaction stops
-- Safe-area-aware layout spacing for notches and home indicators
+- Safe-area-aware layout spacing for notches, home indicators, and modern iOS 16–27 device safe zones
 - Offline shell support through a service worker and manifest
 
 ## Project structure
@@ -37,6 +37,7 @@ Then open http://localhost:8000 in a browser.
 - Content-first layout with no scrollbar layout shift
 - Independent screen state and scroll behavior for tab switching
 - Safe handling for hidden or inactive UI states
+- Bottom-bar lifecycle logic that stays hidden until the loader completes and the home screen is revealed
 
 ## License
 
