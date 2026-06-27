@@ -44,8 +44,8 @@ html, body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: var(--bg-c1);
+    height: 100% !important;
+    background-color: #FBFDFF;
     overflow: hidden;
     overscroll-behavior: none;
     -webkit-font-smoothing: antialiased;
@@ -404,7 +404,7 @@ button {
     transform: translateX(-50%);
     width: 100%;
     max-width: 480px;
-    height: 100%;
+    height: 100% !important;
     margin: 0;
     padding: 0;
     opacity: 0;
@@ -424,7 +424,7 @@ button {
 .scroll-content {
     position: relative;
     min-height: 100%;
-    padding: calc(32px + env(safe-area-inset-top, 44px)) 20px calc(96px + env(safe-area-inset-bottom, 12px)) !important;
+    padding: calc(32px + env(safe-area-inset-top, 44px)) 20px calc(80px + env(safe-area-inset-bottom, 12px)) !important;
 }
 
 .home-screen-container {
@@ -824,14 +824,14 @@ button {
 .apple-tab-bar {
     position: absolute;
     left: 50%;
-    bottom: max(16px, min(20px, calc(12px + env(safe-area-inset-bottom, 0px))));
+    bottom: 8px !important;
     transform: translateX(-50%);
     width: calc(100% - 32px);
     max-width: 420px;
     height: 64px;
     border-radius: 32px;
     padding: 0 8px;
-    padding-bottom: calc(8px + env(safe-area-inset-bottom, 12px));
+    padding-bottom: env(safe-area-inset-bottom, 8px);
     box-sizing: border-box;
     display: flex;
     align-items: center;
