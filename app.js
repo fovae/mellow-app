@@ -22,9 +22,8 @@ const initializeMellowApp = () => {
     const mainContent = document.getElementById("mainContent");
     const nameInput = document.getElementById("userNameInput");
     const submitBtn = document.getElementById("userNameSubmit");
-    const tabBar = document.getElementById("tabBar");
-    const tabIndicatorBubble = document.getElementById("tabIndicatorBubble");
-    const tabItems = Array.from(document.querySelectorAll(".tab-item"));
+    const tabBar = document.querySelector(".pw-bnb");
+    const tabItems = Array.from(document.querySelectorAll(".bnb-item"));
     const bottomBarRevealKey = "mellow_bottom_bar_revealed";
     const screens = Array.from(document.querySelectorAll(".app-screen"));
     const usernameNodes = Array.from(document.querySelectorAll(".username"));
@@ -89,17 +88,11 @@ const initializeMellowApp = () => {
     // NAVIGATION
     // logic: toggles the active screen and aligns the tab indicator
     const updateIndicatorPosition = (activeTab) => {
-        if (!activeTab || !tabBar || !tabIndicatorBubble) {
+        if (!activeTab) {
             return;
         }
 
-        const barRect = tabBar.getBoundingClientRect();
-        const tabRect = activeTab.getBoundingClientRect();
-        const offsetLeft = tabRect.left - barRect.left;
-        const width = Math.max(tabRect.width - 8, 56);
-
-        tabIndicatorBubble.style.left = `${offsetLeft + 4}px`;
-        tabIndicatorBubble.style.width = `${width}px`;
+        tabItems.forEach((item) => item.classList.toggle("is-active", item === activeTab));
     };
 
     const switchScreen = (screenName) => {
@@ -180,8 +173,8 @@ const initializeMellowApp = () => {
                 return;
             }
 
-            tabItems.forEach((item) => item.classList.remove("active"));
-            tab.classList.add("active");
+            tabItems.forEach((item) => item.classList.remove("is-active"));
+            tab.classList.add("is-active");
 
             updateIndicatorPosition(tab);
             switchScreen(tab.getAttribute("data-screen") || "home");

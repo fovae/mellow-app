@@ -8,6 +8,7 @@
     --viewport-height: 100vh;
     --bg-c1: #f7f9ff;
     --bg-c-grad1: linear-gradient(180deg, #fbfdff 0%, #f2f5fd 50%, #e9eefc 100%);
+    --bg-gradient: linear-gradient(180deg, #fbfdff 0%, #f2f5fd 50%, #e9eefc 100%);
     --main-grad: linear-gradient(135deg, #3a86ff 0%, #7b3ff2 100%);
     --sub-txt-c1: rgba(0, 0, 0, 0.6);
     --border-c1: #3a86ff;
@@ -27,25 +28,28 @@
     color: var(--border-c1);
 }
 
+html, body {
+    user-select: none;
+    margin: 0;
+    padding: 0;
+    height: 100svh !important;
+    overscroll-behavior: none;
+    background: var(--bg-gradient);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 body {
     position: relative;
-    min-height: var(--app-height);
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: hidden !important;
+    flex: 1;
     font-family: -apple-system, BlinkMacSystemFont, "Comfortaa", sans-serif;
     font-size: 16px;
     color: var(--text-strong);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    overflow-x: hidden;
     -webkit-tap-highlight-color: transparent;
-    user-select: none;
-    background-color: #FBFDFF;
-}
-html, body {
-    margin: 0;
-    padding: 0;
-    min-height: var(--app-height);
-    background-color: #FBFDFF;
 }
 
 html {
@@ -56,10 +60,17 @@ body {
     overflow: hidden;
 }
 
-@media (display-mode: standalone) {
-    html, body {
-        overflow: hidden;
-    }
+.screen::-webkit-scrollbar,
+.main-container::-webkit-scrollbar,
+.home-os::-webkit-scrollbar,
+#tres_scroll::-webkit-scrollbar,
+*::-webkit-scrollbar {
+    display: none !important;
+}
+
+* {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
 }
 input,
 textarea,
@@ -406,16 +417,26 @@ button {
     40%, 80% { transform: translateX(7px); }
 }
 
-.main-container {
+.main-container,
+.screen,
+.home-os {
     width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.main-container,
+.screen {
     max-width: 480px;
     margin: 0 auto;
     padding: 0;
-    min-height: var(--app-height);
     opacity: 0;
     position: relative;
-    overflow: hidden;
-    box-sizing: border-box;
     visibility: hidden;
     transition: opacity 0.6s var(--easing-ios), visibility 0.6s var(--easing-ios);
     will-change: opacity, visibility;
@@ -427,10 +448,16 @@ button {
 }
 
 /* home screen container */
+.scroll-content,
+#dict_list,
+#tres_scroll {
+    padding-bottom: calc(96px + env(safe-area-inset-bottom, 16px)) !important;
+}
+
 .scroll-content {
     position: relative;
     min-height: 100%;
-    padding: calc(16px + env(safe-area-inset-top, 20px)) 20px calc(100px + env(safe-area-inset-bottom, 16px)) !important;
+    padding: calc(16px + env(safe-area-inset-top, 20px)) 20px calc(96px + env(safe-area-inset-bottom, 16px)) !important;
 }
 
 .home-screen-container {
@@ -827,82 +854,78 @@ button {
     pointer-events: none;
 }
 
-.apple-tab-bar {
+.pw-bnb {
     position: fixed !important;
-    left: 50% !important;
-    bottom: calc(16px + var(--safe-bottom)) !important;
-    transform: translateX(-50%) !important;
-    width: calc(100% - 32px) !important;
-    max-width: 400px !important;
-    height: 60px !important;
-    border-radius: 30px !important;
-    border: 1px solid rgba(0, 0, 0, 0.04) !important;
-    padding: 0 12px !important;
-    box-sizing: border-box !important;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    background: rgba(255, 255, 255, 0.88) !important;
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    padding: 0 16px calc(16px + env(safe-area-inset-bottom, 0px)) !important;
+    pointer-events: none !important;
     z-index: 99999 !important;
-    transition: transform 0.8s var(--easing-ios), opacity 0.8s var(--easing-ios), visibility 0.8s var(--easing-ios);
-    will-change: transform, opacity;
 }
 
-.apple-tab-bar.is-hidden-initially {
-    opacity: 0;
-    transform: translate(-50%, 20px);
-    visibility: hidden;
-    pointer-events: none;
+.bnb-shell {
+    width: 100% !important;
+    max-width: 520px !important;
+    height: 64px !important;
+    pointer-events: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 20px !important;
+    border-radius: 999px !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(140%) !important;
+    backdrop-filter: blur(24px) saturate(140%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
+    box-sizing: border-box !important;
 }
 
-.apple-tab-bar.reveal-bar {
-    opacity: 1;
-    transform: translate(-50%, 0);
-    visibility: visible;
-    pointer-events: auto;
-    transition: opacity 0.8s var(--easing-ios), transform 0.8s var(--easing-ios), visibility 0.8s var(--easing-ios);
-}
-
-.apple-tab-bar.is-visible {
-    opacity: 1;
-    visibility: visible;
-    transform: translate(-50%, 0);
-}
-
-.tab-indicator-bubble {
-    position: absolute;
-    top: 6px;
-    left: 0;
-    height: 52px;
-    background: rgba(255, 255, 255, 0.9);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-    border-radius: 26px;
-    z-index: 1;
-    transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1.2);
-    will-change: left, width, transform;
-}
-
-.tab-item {
-    position: relative;
-    z-index: 2;
+.bnb-item {
     flex: 1;
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     gap: 2px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
+    color: #86868b;
+    text-decoration: none;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    transition: transform 0.1s ease, color 0.2s ease;
 }
 
-.tab-item:active {
-    transform: scale(0.95);
+.bnb-item:active {
+    transform: scale(0.94);
+}
+
+.bnb-item.is-active {
+    color: #111111 !important;
+    font-weight: 600;
+}
+
+@supports(padding-bottom: env(safe-area-inset-bottom)) {
+    .pw-bnb {
+        padding-bottom: calc(14px + env(safe-area-inset-bottom)) !important;
+    }
+}
+
+.pw-bnb.is-hidden-initially {
+    opacity: 0;
+    transform: translateY(40px);
+    visibility: hidden;
+}
+
+.pw-bnb.reveal-bar {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .tab-icon-wrapper {
@@ -916,7 +939,7 @@ button {
 .tab-icon {
     width: 18px;
     height: 18px;
-    color: rgba(0, 0, 0, 0.35);
+    color: currentColor;
     transition: color 0.3s var(--easing2-ios), stroke-width 0.3s var(--easing2-ios);
 }
 
@@ -924,18 +947,8 @@ button {
     font-size: 8.5px;
     font-weight: 700;
     letter-spacing: 0.02em;
-    color: rgba(0, 0, 0, 0.4);
+    color: currentColor;
     transition: color 0.3s var(--easing2-ios);
-}
-
-.tab-item.active .tab-icon {
-    color: url(#apple-gradient);
-    stroke: url(#apple-gradient);
-    stroke-width: 2px;
-}
-
-.tab-item.active .tab-label {
-    color: #1d1d1f;
 }
 
 .app-screen {
