@@ -1,94 +1,42 @@
 # Mellow
 
-Mellow is a minimalist, Apple-inspired Progressive Web App for learning vocabulary through flashcards, quick tests, and a polished mobile-first interface. The app is built with plain HTML, CSS, and JavaScript only — no frameworks, no build tools, and no external UI libraries.
+Mellow is a minimalist, Apple-inspired vocabulary PWA built with plain HTML, CSS, and JavaScript. The app now ships with a frozen, per-screen viewport architecture, a native-feeling custom scrollbar, and a clean, documented structure for future expansion.
 
-## Features
+## What is included
 
-- Elegant onboarding experience with a branded loader and welcome modal
-- Local username persistence using browser storage
-- Glassmorphism-inspired mobile UI with iOS-safe spacing
-- Floating bottom tab bar with animated indicator
-- Five main screens:
-  - Home
-  - Dictionaries
-  - Cards
-  - Tests
-  - Profile
-- Interactive flashcards with flip animation
-- Test answer selection with visual feedback
-- Progressive Web App foundation with standalone install support
-- Offline shell caching through a service worker
-- Mobile-safe metadata for iOS and Android runtimes
+- A branded splash loader and onboarding flow
+- A floating iOS-style tab bar with animated indicator
+- Five independent app screens: Home, Dictionaries, Cards, Tests, and Profile
+- Per-screen scroll containers with a custom capsule scrollbar that fades in while scrolling and fades out after interaction stops
+- Safe-area-aware layout spacing for notches and home indicators
+- Offline shell support through a service worker and manifest
 
-## Project Structure
+## Project structure
 
-- `index.html` — app shell, screens, onboarding modal, tab bar, and content sections
-- `style.css` — all visual styling, animations, layout, glass effects, and mobile-safe spacing
-- `app.js` — app flow, local storage, screen switching, tab indicator animation, flashcards, tests, and profile actions
-- `manifest.json` — standalone PWA manifest with install metadata and icon definitions
-- `sw.js` — service worker for offline caching and app-shell fallback
-- `public/` — static assets used by the app, including icons for the PWA manifest
+- [index.html](index.html) — app shell, semantic blocks, screen wrappers, and interactive UI nodes
+- [style.css](style.css) — layout, visual system, safe-area spacing, screen transitions, and the custom scrollbar visuals
+- [app.js](app.js) — boot flow, onboarding, tab switching, flashcard logic, test feedback, and independent scroll-thumb math
+- [manifest.json](manifest.json) — install metadata and standalone PWA configuration
+- [sw.js](sw.js) — offline cache and app-shell fallback logic
+- [ARCHITECTURE.md](ARCHITECTURE.md) — a beginner-friendly guide to the full system architecture
 
-## Tech Stack
+## Local development
 
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- Progressive Web App basics
-- Web app manifest
-- Service worker offline caching
-
-## Running the App
-
-Because this project is a static web app, you can run it locally by opening `index.html` in a browser.
-
-If you want a local development server, you can use any simple static server such as:
+Run a local static server from the project root:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Then open:
+Then open http://localhost:8000 in a browser.
 
-```text
-http://localhost:8000
-```
+## Design principles
 
-## Design Notes
-
-The interface follows a minimalist, iOS-inspired visual language with:
-
-- soft gradients
-- glass blur surfaces
-- rounded cards and controls
-- fluid animations and spring-like easing
-- mobile-safe padding for notches and home indicators
-- standalone PWA-ready metadata for iOS 16+ and modern Android devices
-
-## App Flow
-
-1. The page loader animates on startup.
-2. The app checks local storage for a saved username.
-3. If no username exists, the welcome modal appears.
-4. After a valid username is saved, the main app becomes visible.
-5. The user can navigate between the five app screens from the floating tab bar.
-
-## PWA Notes
-
-The app now includes a basic production-ready PWA foundation:
-
-- a full manifest configuration with install metadata
-- a service worker that caches the core application shell
-- offline fallback behavior for visited resources
-- safe service worker registration from the main application thread
-
-Future enhancements may include:
-
-- persistent dictionary and flashcard data
-- real test scoring
-- progress tracking
-- backend integration
-- richer install and update handling
+- No frameworks or build tooling
+- Fast, hardware-accelerated UI transitions
+- Content-first layout with no scrollbar layout shift
+- Independent screen state and scroll behavior for tab switching
+- Safe handling for hidden or inactive UI states
 
 ## License
 

@@ -10,7 +10,10 @@ if ("serviceWorker" in navigator) {
     });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+const initializeMellowApp = () => {
+    // MAIN CONTAINER
+    // logic: boots the app shell, onboarding flow, tab switching, and screen interactions
+
     const storageKey = "mellow_username";
     const legacyStorageKey = "mellow_user_name";
 
@@ -28,31 +31,63 @@ document.addEventListener("DOMContentLoaded", () => {
     const flashcardControls = Array.from(document.querySelectorAll(".flashcard-control"));
     const testOptions = Array.from(document.querySelectorAll(".test-opt-btn"));
 
-    function getStoredUsername() {
-        const currentName = localStorage.getItem(storageKey);
+    // PAGE LOADER
+    // logic: restores saved state and controls the intro transition
+    const getStoredUsername = () => {
+        const currentName = window.localStorage.getItem(storageKey);
         if (currentName) {
             return currentName;
         }
 
-        const legacyName = localStorage.getItem(legacyStorageKey);
+        const legacyName = window.localStorage.getItem(legacyStorageKey);
         if (legacyName) {
-            localStorage.setItem(storageKey, legacyName);
-            localStorage.removeItem(legacyStorageKey);
+            window.localStorage.setItem(storageKey, legacyName);
+            window.localStorage.removeItem(legacyStorageKey);
             return legacyName;
         }
 
         return "";
-    }
+    };
 
-    function setUsername(nickname) {
+    // ONBOARDING
+    // logic: renders the chosen name and validates the signup flow
+    const setUsername = (nickname) => {
         usernameNodes.forEach((node) => {
             if (node) {
                 node.textContent = nickname;
             }
         });
-    }
+    };
 
-    function updateIndicatorPosition(activeTab) {
+    const shakeInput = () => {
+        if (!nameInput) {
+            return;
+        }
+
+        nameInput.classList.remove("is-shaking");
+        void nameInput.offsetWidth;
+        nameInput.classList.add("is-shaking");
+        window.setTimeout(() => nameInput.classList.remove("is-shaking"), 380);
+    };
+
+    const saveAndContinue = () => {
+        if (!nameInput) {
+            return;
+        }
+
+        const trimmedValue = nameInput.value.trim();
+        if (!trimmedValue) {
+            shakeInput();
+            return;
+        }
+
+        window.localStorage.setItem(storageKey, trimmedValue);
+        showMainApplication(trimmedValue);
+    };
+
+    // NAVIGATION
+    // logic: toggles the active screen and aligns the tab indicator
+    const updateIndicatorPosition = (activeTab) => {
         if (!activeTab || !tabBar || !tabIndicator) {
             return;
         }
@@ -64,31 +99,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
         tabIndicator.style.width = `${width}px`;
         tabIndicator.style.transform = `translateX(${offsetLeft + 5}px)`;
-    }
+    };
 
-    function switchScreen(screenName) {
+    const switchScreen = (screenName) => {
+        const targetId = `${screenName}Screen`;
+
         screens.forEach((screen) => {
-            const targetId = `${screenName}Screen`;
+            if (!screen) {
+                return;
+            }
+
             screen.classList.toggle("is-active", screen.id === targetId);
         });
+    };
 
-        window.scrollTo({ top: 0, behavior: "instant" });
-    }
-
-    function showMainApplication(nickname) {
+    const showMainApplication = (nickname) => {
         setUsername(nickname);
 
-        if (welcomeModal) {
-            welcomeModal.classList.remove("is-visible");
-        }
-
-        if (mainContent) {
-            mainContent.classList.add("is-visible");
-        }
-
-        if (tabBar) {
-            tabBar.classList.add("is-visible");
-        }
+        welcomeModal?.classList.remove("is-visible");
+        mainContent?.classList.add("is-visible");
+        tabBar?.classList.add("is-visible");
 
         switchScreen("home");
 
@@ -96,43 +126,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const activeTab = tabBar?.querySelector(".tab-item.active") || tabItems[0];
             updateIndicatorPosition(activeTab);
         });
+    };
 
-        document.body.style.overflow = "auto";
-    }
-
-    function shakeInput() {
-        if (!nameInput) {
-            return;
-        }
-
-        nameInput.classList.remove("is-shaking");
-        void nameInput.offsetWidth;
-        nameInput.classList.add("is-shaking");
-        window.setTimeout(() => nameInput.classList.remove("is-shaking"), 380);
-    }
-
-    function saveAndContinue() {
-        if (!nameInput) {
-            return;
-        }
-
-        const trimmedValue = nameInput.value.trim();
-        if (!trimmedValue) {
-            shakeInput();
-            return;
-        }
-
-        localStorage.setItem(storageKey, trimmedValue);
-        showMainApplication(trimmedValue);
-    }
-
-    function startApplicationFlow() {
+    const startApplicationFlow = () => {
         const storedName = getStoredUsername();
 
         if (!storedName) {
-            if (welcomeModal) {
-                welcomeModal.classList.add("is-visible");
-            }
+            welcomeModal?.classList.add("is-visible");
             if (nameInput) {
                 window.setTimeout(() => nameInput.focus(), 180);
             }
@@ -140,8 +140,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         showMainApplication(storedName);
-    }
+    };
 
+    // HOME SCREEN
+    // logic: wires card flipping, test feedback, and profile actions safely
     if (submitBtn) {
         submitBtn.addEventListener("click", saveAndContinue);
     }
@@ -185,9 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
     flashcardControls.forEach((button) => {
         button.addEventListener("click", (event) => {
             event.stopPropagation();
-            if (flashcard) {
-                flashcard.classList.remove("flipped");
-            }
+            flashcard?.classList.remove("flipped");
         });
     });
 
@@ -218,22 +218,71 @@ document.addEventListener("DOMContentLoaded", () => {
     const profileSettingsBtn = document.getElementById("profBtnSettings");
     const profileResetBtn = document.getElementById("profBtnReset");
 
-    if (profileStatsBtn) {
-        profileStatsBtn.addEventListener("click", () => window.alert("Open Statistics"));
-    }
+    profileStatsBtn?.addEventListener("click", () => window.alert("Open Statistics"));
+    profileSettingsBtn?.addEventListener("click", () => window.alert("Open Settings"));
+    profileResetBtn?.addEventListener("click", () => {
+        if (window.confirm("Reset all data?")) {
+            window.localStorage.clear();
+            window.location.reload();
+        }
+    });
 
-    if (profileSettingsBtn) {
-        profileSettingsBtn.addEventListener("click", () => window.alert("Open Settings"));
-    }
+    // APP SCREEN
+    // logic: keeps each viewport's custom scrollbar pinned to its own content bounds
+    const initializeCustomScrollThumbs = () => {
+        document.querySelectorAll(".app-screen").forEach((screen) => {
+            const thumb = screen.querySelector(".custom-scroll-thumb");
+            const scrollContent = screen.querySelector(".scroll-content");
 
-    if (profileResetBtn) {
-        profileResetBtn.addEventListener("click", () => {
-            if (window.confirm("Reset all data?")) {
-                localStorage.clear();
-                window.location.reload();
+            if (!thumb || !scrollContent) {
+                return;
             }
+
+            let scrollTimeout;
+
+            const updateThumbPosition = () => {
+                const contentStyle = window.getComputedStyle(scrollContent);
+                const paddingTop = parseFloat(contentStyle.paddingTop) || 0;
+                const paddingBottom = parseFloat(contentStyle.paddingBottom) || 0;
+                const visibleTrackHeight = Math.max(screen.clientHeight - paddingTop - paddingBottom, 1);
+                const maxThumbTravel = Math.max(visibleTrackHeight - thumb.offsetHeight, 0);
+                const scrollableDistance = Math.max(screen.scrollHeight - screen.clientHeight, 1);
+                const scrollPercent = Math.max(0, Math.min(1, screen.scrollTop / scrollableDistance));
+                const finalY = paddingTop + scrollPercent * maxThumbTravel;
+
+                thumb.style.transform = `translate3d(0, ${finalY}px, 0)`;
+            };
+
+            const showThumb = () => {
+                thumb.classList.add("is-scrolling");
+                window.clearTimeout(scrollTimeout);
+                scrollTimeout = window.setTimeout(() => {
+                    thumb.classList.remove("is-scrolling");
+                }, 650);
+            };
+
+            screen.addEventListener(
+                "scroll",
+                () => {
+                    showThumb();
+                    window.requestAnimationFrame(updateThumbPosition);
+                },
+                { passive: true }
+            );
+
+            window.addEventListener(
+                "resize",
+                () => {
+                    window.requestAnimationFrame(updateThumbPosition);
+                },
+                { passive: true }
+            );
+
+            window.requestAnimationFrame(updateThumbPosition);
         });
-    }
+    };
+
+    initializeCustomScrollThumbs();
 
     if (pageLoader) {
         window.setTimeout(() => {
@@ -243,4 +292,10 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         startApplicationFlow();
     }
-});
+};
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeMellowApp);
+} else {
+    initializeMellowApp();
+}

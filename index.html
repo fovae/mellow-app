@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#FBFDFF">
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#FBFDFF">
     <meta name="color-scheme" content="light">
@@ -41,7 +42,8 @@
 </head>
 
 <body>
-    <!--page loader-->
+    <!-- MAIN CONTAINER -->
+    <!-- PAGE LOADER -->
     <div class="pl">
         <div class="pl-cards">
             <div class="card card-a">
@@ -67,7 +69,7 @@
         </div>
     </div>
 
-    <!--userNameModal-->
+    <!-- ONBOARDING -->
     <div class="home-screen-welcome-modal">
         <h2>Welcome to Mellow!</h2>
         <p>How would you like us to call you?</p>
@@ -76,7 +78,7 @@
         <button id="userNameSubmit">Save</button>
     </div>
 
-    <!--burger menu-->
+    <!-- NAVIGATION -->
     <svg width="0" height="0" style="position:absolute">
         <defs>
             <linearGradient id="apple-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -146,51 +148,54 @@
             <span class="tab-label">PROFILE</span>
         </div>
     </nav>
-
-    <!--main - home page-->
+    <!-- HOME SCREEN -->
     <main id="mainContent" class="main-container">
 
         <section id="homeScreen" class="app-screen is-active">
-            <div class="home-screen-container">
-                <div class="screen-header">
-                    <div>
-                        <h1 class="greeting">Welcome, <span class="username"></span> 👋</h1>
-                        <div class="subtle">What’s your mood today?</div>
+            <div class="custom-scroll-thumb"></div>
+            <!-- home screen container -->
+            <div class="scroll-content">
+                <div class="home-screen-container">
+                    <div class="screen-header">
+                        <div>
+                            <h1 class="greeting">Welcome, <span class="username"></span> 👋</h1>
+                            <div class="subtle">What’s your mood today?</div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="dashboard-card">
+                    <div class="dashboard-card">
                     <div class="counts-grid">
                         <div class="small-stat">
                             <span class="stat-icon">📚</span>
-                            <span class="stat-value" id="count-dictionaries">0</span>
+                            <span class="stat-value count-dictionaries">0</span>
                             <span class="stat-label">Dictionaries</span>
                         </div>
                         <div class="small-stat">
                             <span class="stat-icon">🔤</span>
-                            <span class="stat-value" id="count-words">0</span>
+                            <span class="stat-value count-words">0</span>
                             <span class="stat-label">Total Words</span>
                         </div>
                         <div class="small-stat">
                             <span class="stat-icon">★</span>
-                            <span class="stat-value" id="count-favourites">0</span>
+                            <span class="stat-value count-favourites">0</span>
                             <span class="stat-label">Favourites</span>
                         </div>
                         <div class="small-stat">
                             <span class="stat-icon">⏳</span>
-                            <span class="stat-value" id="count-hours">0m</span>
+                            <span class="stat-value count-hours">0m</span>
                             <span class="stat-label">Active Time</span>
                         </div>
                     </div>
 
-                    <div class="active-dictionary" id="active-dictionary-block">
+                    <div class="active-dictionary active-dictionary-block">
                         <div class="active-left">
                             <div class="active-title">Active Dictionary</div>
-                            <div class="active-name" id="active-dict-name">Select a dictionary</div>
-                            <div class="active-sub" id="active-dict-sub">Tap to choose</div>
+                            <div class="active-name active-dict-name">Select a dictionary</div>
+                            <div class="active-sub active-dict-sub">Tap to choose</div>
                         </div>
-                        <div class="active-right" id="active-dict-emoji">📚</div>
+                        <div class="active-right active-dict-emoji">📚</div>
                     </div>
+
                 </div>
 
                 <div class="stats-widget">
@@ -222,28 +227,68 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="dashboard-card">
+                    <div class="counts-grid">
+                        <div class="small-stat">
+                            <span class="stat-icon">📚</span>
+                            <span class="stat-value count-dictionaries">0</span>
+                            <span class="stat-label">Dictionaries</span>
+                        </div>
+                        <div class="small-stat">
+                            <span class="stat-icon">🔤</span>
+                            <span class="stat-value count-words">0</span>
+                            <span class="stat-label">Total Words</span>
+                        </div>
+                        <div class="small-stat">
+                            <span class="stat-icon">★</span>
+                            <span class="stat-value count-favourites">0</span>
+                            <span class="stat-label">Favourites</span>
+                        </div>
+                        <div class="small-stat">
+                            <span class="stat-icon">⏳</span>
+                            <span class="stat-value count-hours">0m</span>
+                            <span class="stat-label">Active Time</span>
+                        </div>
+                    </div>
+
+                    <div class="active-dictionary active-dictionary-block">
+                        <div class="active-left">
+                            <div class="active-title">Active Dictionary</div>
+                            <div class="active-name active-dict-name">Select a dictionary</div>
+                            <div class="active-sub active-dict-sub">Tap to choose</div>
+                        </div>
+                        <div class="active-right active-dict-emoji">📚</div>
+                    </div>
+
+                </div>
+                </div>
             </div>
         </section>
 
         <section id="dictionariesScreen" class="app-screen">
-            <div class="home-screen-container">
-                <div class="screen-header">
-                    <div>
-                        <h1 class="greeting">My Dictionaries</h1>
-                        <div class="subtle">Manage your vocabulary packs</div>
-                    </div>
-                    <button class="apple-btn-primary" id="addDictBtn">+ New</button>
-                </div>
-
-                <div class="dicts-grid" id="dictsListContainer">
-                    <div class="dict-main-card">
-                        <div class="dmc-header">
-                            <span class="dmc-emoji">🇬🇧</span>
-                            <span class="dmc-count">124 words</span>
+            <div class="custom-scroll-thumb"></div>
+            <!-- dictionaries screen container -->
+            <div class="scroll-content">
+                <div class="home-screen-container">
+                    <div class="screen-header">
+                        <div>
+                            <h1 class="greeting">My Dictionaries</h1>
+                            <div class="subtle">Manage your vocabulary packs</div>
                         </div>
-                        <h3 class="dmc-title">English Upper-Intermediate</h3>
-                        <div class="dmc-footer">
-                            <span class="dmc-badge">Active</span>
+                        <button class="apple-btn-primary" id="addDictBtn">+ New</button>
+                    </div>
+
+                    <div class="dicts-grid" id="dictsListContainer">
+                        <div class="dict-main-card">
+                            <div class="dmc-header">
+                                <span class="dmc-emoji">🇬🇧</span>
+                                <span class="dmc-count">124 words</span>
+                            </div>
+                            <h3 class="dmc-title">English Upper-Intermediate</h3>
+                            <div class="dmc-footer">
+                                <span class="dmc-badge">Active</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -251,73 +296,86 @@
         </section>
 
         <section id="cardsScreen" class="app-screen">
-            <div class="home-screen-container">
-                <div class="screen-header">
-                    <div>
-                        <h1 class="greeting">Flashcards</h1>
-                        <div class="subtle">Tap the card to reveal the meaning</div>
-                    </div>
-                </div>
-
-                <div class="flashcard-shell">
-                    <div class="flashcard-wrapper" id="flashcardElement">
-                        <div class="flashcard-face flashcard-front">
-                            <span class="flashcard-label">Vocabulary</span>
-                            <div class="flashcard-word">Serene</div>
-                            <div class="flashcard-meaning">A calm and peaceful state</div>
-                        </div>
-                        <div class="flashcard-face flashcard-back">
-                            <span class="flashcard-label">Meaning</span>
-                            <div class="flashcard-word">Peaceful</div>
-                            <div class="flashcard-meaning">Used to describe a quiet, tranquil feeling</div>
+            <div class="custom-scroll-thumb"></div>
+            <!-- cards screen container -->
+            <div class="scroll-content">
+                <div class="home-screen-container">
+                    <div class="screen-header">
+                        <div>
+                            <h1 class="greeting">Flashcards</h1>
+                            <div class="subtle">Tap the card to reveal the meaning</div>
                         </div>
                     </div>
 
-                    <div class="flashcard-controls">
-                        <button class="flashcard-control flashcard-control--wrong" type="button">Again</button>
-                        <button class="flashcard-control flashcard-control--right" type="button">Recall</button>
+                    <div class="flashcard-shell">
+                        <div class="flashcard-wrapper" id="flashcardElement">
+                            <div class="flashcard-face flashcard-front">
+                                <span class="flashcard-label">Vocabulary</span>
+                                <div class="flashcard-word">Serene</div>
+                                <div class="flashcard-meaning">A calm and peaceful state</div>
+                            </div>
+                            <div class="flashcard-face flashcard-back">
+                                <span class="flashcard-label">Meaning</span>
+                                <div class="flashcard-word">Peaceful</div>
+                                <div class="flashcard-meaning">Used to describe a quiet, tranquil feeling</div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard-controls">
+                            <button class="flashcard-control flashcard-control--wrong" type="button">Again</button>
+                            <button class="flashcard-control flashcard-control--right" type="button">Recall</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="testsScreen" class="app-screen">
-            <div class="home-screen-container">
-                <div class="screen-header">
-                    <div>
-                        <h1 class="greeting">Quick Test</h1>
-                        <div class="subtle">Choose the best answer</div>
+            <div class="custom-scroll-thumb"></div>
+            <!-- tests screen container -->
+            <div class="scroll-content">
+                <div class="home-screen-container">
+                    <div class="screen-header">
+                        <div>
+                            <h1 class="greeting">Quick Test</h1>
+                            <div class="subtle">Choose the best answer</div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="test-card">
-                    <div class="test-question">What does “serene” mean?</div>
-                    <div class="test-options">
-                        <button class="test-opt-btn" type="button" data-correct="false">Stormy</button>
-                        <button class="test-opt-btn" type="button" data-correct="true">Calm</button>
-                        <button class="test-opt-btn" type="button" data-correct="false">Loud</button>
+                    <div class="test-card">
+                        <div class="test-question">What does “serene” mean?</div>
+                        <div class="test-options">
+                            <button class="test-opt-btn" type="button" data-correct="false">Stormy</button>
+                            <button class="test-opt-btn" type="button" data-correct="true">Calm</button>
+                            <button class="test-opt-btn" type="button" data-correct="false">Loud</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="profileScreen" class="app-screen">
-            <div class="home-screen-container">
-                <div class="screen-header">
-                    <div>
-                        <h1 class="greeting">Profile</h1>
-                        <div class="subtle">Personalize your learning flow</div>
+            <div class="custom-scroll-thumb"></div>
+            <!-- profile screen container -->
+            <div class="scroll-content">
+                <div class="home-screen-container">
+                    <div class="screen-header">
+                        <div>
+                            <h1 class="greeting">Profile</h1>
+                            <div class="subtle">Personalize your learning flow</div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="profile-card">
-                    <div class="profile-pill">Hello, <span class="username"></span></div>
-                    <div class="profile-pill">Current streak: 7 days</div>
-                    <div class="profile-pill">Focus mode: Calm</div>
-                    <div class="profile-actions">
-                        <button class="profile-action" id="profBtnStats" type="button">View statistics</button>
-                        <button class="profile-action" id="profBtnSettings" type="button">Settings</button>
-                        <button class="profile-action profile-action--danger" id="profBtnReset" type="button">Reset data</button>
+                    <div class="profile-card">
+                        <div class="profile-pill">Hello, <span class="username"></span></div>
+                        <div class="profile-pill">Current streak: 7 days</div>
+                        <div class="profile-pill">Focus mode: Calm</div>
+                        <div class="profile-actions">
+                            <button class="profile-action" id="profBtnStats" type="button">View statistics</button>
+                            <button class="profile-action" id="profBtnSettings" type="button">Settings</button>
+                            <button class="profile-action profile-action--danger" id="profBtnReset" type="button">Reset
+                                data</button>
+                        </div>
                     </div>
                 </div>
             </div>
